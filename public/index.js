@@ -1,3 +1,7 @@
+const nameElement = document.getElementById('name')
+const hogletsElement = document.getElementById('hoglets')
+const allergiesElement = document.getElementById('allergies')
+
 const getHedgehogs = () => {
   $('#hedgehog-info').html('');
 
@@ -30,11 +34,23 @@ const appendHedgehog = (hedgehog) => {
 };
 
 const addNewHedgehog = () => {
-  console.log("we are in the addNewHedgehog function");
-};
+  event.preventDefault()
+  fetch('https://hedgehog-party.herokuapp.com/api/v1/invites', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      "name": nameElement.value ,
+      "hoglets": hogletsElement.value,
+      "allergies": allergiesElement.value,
+    })
+  });
+}
 
 const unInviteHedgehog = () => {
-  console.log("we are in the unInviteHedgehog function");
+  fetch('https://hedgehog-party.herokuapp.com/api/v1/invites', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
 };
 
 getHedgehogs();
